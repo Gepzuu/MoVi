@@ -20,7 +20,8 @@ export default function CustomPagination({ setPage, numOfPages = 10 }) {
       style={{
         width: "100%",
         display: "flex",
-        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
         marginTop: 10,
       }}
     >
@@ -33,6 +34,22 @@ export default function CustomPagination({ setPage, numOfPages = 10 }) {
           hidePrevButton
         />
       </ThemeProvider>
+
+      {/* Footer starts here */}
+      <footer
+        style={{
+          width: "100%",
+          textAlign: "center",
+          padding: "10px",
+          background: "#000",
+          color: "#fff",
+          marginTop: "20px",
+        }}
+      >
+        <p>&copy; JMG | 2024</p>
+
+      </footer>
+      {/* Footer ends here */}
     </div>
   );
 }

@@ -20,14 +20,22 @@ const Search = () => {
   const [content, setContent] = useState([]);
   const [numOfPages, setNumOfPages] = useState();
 
-  const darkTheme = createMuiTheme({
+  
+  const customTheme = createMuiTheme({
     palette: {
       type: "dark",
       primary: {
         main: "#fff",
       },
+      secondary: {
+        main: "#FFFF00", 
+      },
     },
   });
+
+  const handleSearch = () => {
+    fetchSearch();
+  };
 
   const fetchSearch = async () => {
     try {
@@ -44,6 +52,12 @@ const Search = () => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   useEffect(() => {
     window.scroll(0, 0);
     fetchSearch();
@@ -52,7 +66,7 @@ const Search = () => {
 
   return (
     <div>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={customTheme}>
         <div className="search">
           <TextField
             style={{ flex: 1 }}
@@ -60,29 +74,32 @@ const Search = () => {
             label="Search"
             variant="filled"
             onChange={(e) => setSearchText(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
-          <Button
-            onClick={fetchSearch}
-            variant="contained"
-            style={{ marginLeft: 10 }}
-          >
-            <SearchIcon fontSize="large" />
-          </Button>
+         <Button
+  onClick={fetchSearch}
+  variant="contained"
+  style={{ marginLeft: 10, backgroundColor: "yellow" }}
+>
+  <SearchIcon fontSize="large" />
+</Button>
+
         </div>
-        <Tabs
-          value={type}
-          indicatorColor="primary"
-          textColor="primary"
-          onChange={(event, newValue) => {
-            setType(newValue);
-            setPage(1);
-          }}
-          style={{ paddingBottom: 5 }}
-          aria-label="disabled tabs example"
-        >
-          <Tab style={{ width: "50%" }} label="Search Movies" />
-          <Tab style={{ width: "50%" }} label="Search TV Series" />
-        </Tabs>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Tabs
+            value={type}
+            textColor="secondary"
+            onChange={(event, newValue) => {
+              setType(newValue);
+              setPage(1);
+            }}
+            style={{ backgroundColor: "black", paddingBottom: 5 }}
+            aria-label="disabled tabs example"
+          >
+            <Tab style={{ width: "50%" }} label="Movies" />
+            <Tab style={{ width: "50%" }} label="Series" />
+          </Tabs>
+        </div>
       </ThemeProvider>
       <div className="trending">
         {content &&
