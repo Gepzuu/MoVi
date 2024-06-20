@@ -8,7 +8,7 @@ With MoVi, you can easily find cast details. The web app is also fully mobile re
 
 
 
-<div style="text-align: center;">
+<div align="center">
     <img src="https://github.com/Gepzuu/MoVi/assets/92858147/e67c7ec1-5cc5-476e-9895-4082a0557058" alt="web">
     <img src="https://github.com/Gepzuu/MoVi/assets/92858147/29063c6d-7041-4834-aebd-98cddfe6f0f1" alt="mobile">
 </div>
