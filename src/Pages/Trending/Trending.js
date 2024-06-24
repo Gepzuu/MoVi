@@ -9,17 +9,21 @@ const Trending = () => {
   const [content, setContent] = useState([]);
 
   const fetchTrending = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/trending/all/day?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
-    );
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/trending/all/day?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`
+      );
 
-    setContent(data.results);
+      setContent(data?.results ?? []);
+    } catch (error) {
+      console.error("Failed to fetch trending content", error);
+    }
   };
 
   useEffect(() => {
     window.scroll(0, 0);
     fetchTrending();
-    // eslint-disable-next-line
+  
   }, [page]);
 
   return (
