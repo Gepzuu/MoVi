@@ -35,6 +35,5 @@
 .subTitle {
   display: flex;
   justify-content: space-between;
-  padding: 0 2px;
-  padding-bottom: 3px;
+  padding: 0 2px 3px 2px;
 }
