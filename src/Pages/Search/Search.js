@@ -20,7 +20,6 @@ const Search = () => {
   const [content, setContent] = useState([]);
   const [numOfPages, setNumOfPages] = useState();
 
-  
   const customTheme = createMuiTheme({
     palette: {
       type: "dark",
@@ -28,7 +27,7 @@ const Search = () => {
         main: "#fff",
       },
       secondary: {
-        main: "#FFFF00", 
+        main: "#FFFF00",
       },
     },
   });
@@ -44,9 +43,8 @@ const Search = () => {
           process.env.REACT_APP_API_KEY
         }&language=en-US&query=${searchText}&page=${page}&include_adult=false`
       );
-      setContent(data.results);
-      setNumOfPages(data.total_pages);
-      // console.log(data);
+      setContent(data?.results);
+      setNumOfPages(data?.total_pages);
     } catch (error) {
       console.error(error);
     }
@@ -61,7 +59,6 @@ const Search = () => {
   useEffect(() => {
     window.scroll(0, 0);
     fetchSearch();
-    // eslint-disable-next-line
   }, [type, page]);
 
   return (
@@ -76,14 +73,13 @@ const Search = () => {
             onChange={(e) => setSearchText(e.target.value)}
             onKeyPress={handleKeyPress}
           />
-         <Button
-  onClick={fetchSearch}
-  variant="contained"
-  style={{ marginLeft: 10, backgroundColor: "yellow" }}
->
-  <SearchIcon fontSize="large" />
-</Button>
-
+          <Button
+            onClick={fetchSearch}
+            variant="contained"
+            style={{ marginLeft: 10, backgroundColor: "yellow" }}
+          >
+            <SearchIcon fontSize="large" />
+          </Button>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Tabs
