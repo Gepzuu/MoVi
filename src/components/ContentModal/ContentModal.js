@@ -4,6 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import axios from "axios";
+import PropTypes from "prop-types";
 import {
   img_500,
   unavailable,
@@ -47,7 +48,7 @@ export default function TransitionsModal({ children, media_type, id }) {
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       setOpen(true);
     }
   };
@@ -56,23 +57,19 @@ export default function TransitionsModal({ children, media_type, id }) {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
     );
-
     setContent(data);
-    // console.log(data);
   };
 
   const fetchVideo = async () => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
     );
-
     setVideo(data.results[0]?.key);
   };
 
   useEffect(() => {
     fetchData();
     fetchVideo();
-    // eslint-disable-next-line
   }, []);
 
   return (
@@ -162,3 +159,9 @@ export default function TransitionsModal({ children, media_type, id }) {
     </>
   );
 }
+
+TransitionsModal.propTypes = {
+  children: PropTypes.node.isRequired,
+  media_type: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+};

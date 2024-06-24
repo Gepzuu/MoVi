@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+import PropTypes from "prop-types";
 import { img_300, noPicture } from "../../config/config";
 import "./Carousel.css";
 
@@ -11,7 +12,7 @@ const Gallery = ({ id, media_type }) => {
   const [credits, setCredits] = useState([]);
 
   const items = credits.map((c) => (
-    <div className="carouselItem">
+    <div className="carouselItem" key={c.id}>
       <img
         src={c.profile_path ? `${img_300}/${c.profile_path}` : noPicture}
         alt={c?.name}
@@ -35,15 +36,19 @@ const Gallery = ({ id, media_type }) => {
   };
 
   const fetchCredits = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/${media_type}/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-    );
-    setCredits(data.cast);
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/${media_type}/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      );
+      setCredits(data.cast);
+    } catch (error) {
+      console.error("Failed to fetch credits", error);
+    }
   };
 
   useEffect(() => {
     fetchCredits();
-    // eslint-disable-next-line
+    
   }, []);
 
   return (
@@ -57,6 +62,11 @@ const Gallery = ({ id, media_type }) => {
       autoPlay
     />
   );
+};
+
+Gallery.propTypes = {
+  id: PropTypes.number.isRequired,
+  media_type: PropTypes.string.isRequired,
 };
 
 export default Gallery;
