@@ -46,6 +46,12 @@ export default function TransitionsModal({ children, media_type, id }) {
     setOpen(false);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      setOpen(true);
+    }
+  };
+
   const fetchData = async () => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
@@ -76,6 +82,9 @@ export default function TransitionsModal({ children, media_type, id }) {
         style={{ cursor: "pointer" }}
         color="inherit"
         onClick={handleOpen}
+        onKeyDown={handleKeyDown}
+        role="button"
+        tabIndex={0}
       >
         {children}
       </div>
